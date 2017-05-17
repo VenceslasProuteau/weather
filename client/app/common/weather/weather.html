@@ -1,0 +1,12 @@
+<div class="weather">
+	<weather-form add-location="$ctrl.addLocation($event)"></weather-form>
+	<div class="weather-cards">
+		<weather-card 
+			remove-location="$ctrl.removeLocation($event)" 
+			path-icons="$ctrl.pathIcons" 
+			location="location" 
+			ng-repeat="location in $ctrl.locations track by location.woeid"
+			class="weather-card">
+		</weather-card>
+	</div>
+</div>

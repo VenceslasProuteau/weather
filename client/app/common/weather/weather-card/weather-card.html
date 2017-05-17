@@ -1,0 +1,11 @@
+{{$ctrl.location.title}}
+<weather-icon 
+	path-icon="$ctrl.pathIcon" 
+	title="$ctrl.title">
+</weather-icon>
+<div class="weather-card__title">{{$ctrl.title}}</div>
+<button 
+	class="weather-card__button weather-card__button--remove"
+	ng-click="$ctrl.onRemove()">
+	Remove
+</button>
