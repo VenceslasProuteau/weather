@@ -1,0 +1,19 @@
+<div class="weather-sidebar__form-container">
+	<weather-form 
+		class="weather-sidebar__form"
+		ng-if="$ctrl.locations.length"
+		add-location="$ctrl.searchLocation({query: $event})"
+		>
+	</weather-form>
+</div>
+<div 
+	ng-repeat="location in $ctrl.locations"
+	ng-click="$ctrl.onClick({location: location})"
+	ng-class="{'weather-sidebar__item--active': location.woeid === $ctrl.selectedLocationId}"
+	class="weather-sidebar__item">
+	<div class="weather-sidebar__item-city">{{location.title}}</div>
+	<div class="weather-sidebar__item-temp" ng-hide="location.woeid === $ctrl.selectedLocationId">
+		{{location.consolidated_weather[0].temp}}
+		<weather-icon class="weather-sidebar__item-icon" path-icon="location.consolidated_weather[0].iconPath" title="location.title"></weather-icon>
+	</div>
+</div>

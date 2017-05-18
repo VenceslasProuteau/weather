@@ -4,13 +4,15 @@ class WeatherCardController {
 		this.EventEmitter = EventEmitter;
 	}
 	$onInit() {
-		this.pathIcon = `${this.pathIcons}${this.location.consolidated_weather[0].weather_state_abbr}.svg`;
-		this.title = this.location.consolidated_weather[0].weather_state_name;
+		this.selectedDayObject = this.location.consolidated_weather[0];
+		this.weekForecastArr = [...this.location.consolidated_weather.slice(1)];
+
 	}
-	onRemove() {
-		this.removeLocation(
-			this.EventEmitter({id: this.location.woeid})
-		)
+	$onChanges(data) {
+		if (!data.location.isFirstChange()) {
+			this.selectedDayObject = Object.assign({}, data.location.currentValue.consolidated_weather[0]);
+			this.weekForecastArr = [...data.location.currentValue.consolidated_weather.slice(1)];
+		}
 	}
 }
 

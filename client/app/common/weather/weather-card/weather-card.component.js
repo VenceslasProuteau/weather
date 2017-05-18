@@ -3,9 +3,7 @@ import controller from './weather-card.controller';
 
 let WeatherCardComponent = {
 	bindings: {
-		location : '<',
-		pathIcons: '<',
-		removeLocation: '&'
+		location : '<'
 	},
 	template,
 	controller

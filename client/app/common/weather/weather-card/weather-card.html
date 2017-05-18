@@ -1,11 +1,75 @@
-{{$ctrl.location.title}}
-<weather-icon 
-	path-icon="$ctrl.pathIcon" 
-	title="$ctrl.title">
-</weather-icon>
-<div class="weather-card__title">{{$ctrl.title}}</div>
-<button 
-	class="weather-card__button weather-card__button--remove"
-	ng-click="$ctrl.onRemove()">
-	Remove
-</button>
+<div class="weather-card__current-day">
+	<div class="weather-card__current-day-value">
+		{{$ctrl.selectedDayObject.currentDay}}
+	</div>
+	<div class="weather-card__main">
+		<weather-icon
+			class="weather-card__icon"
+			path-icon="$ctrl.selectedDayObject.iconPath" 
+			title="$ctrl.selectedDayObject.weather_state_name">
+		</weather-icon>
+		<div class="weather-card__main-informations">
+			<div class="weather-card__main__temp" ng-bind="$ctrl.selectedDayObject.temp"></div>
+			<div class="weather-card__main__weatherCondition" ng-bind="$ctrl.selectedDayObject.weather_state_name"></div>
+			<div class="weather-card__main__extremes">
+				<span ng-bind="$ctrl.selectedDayObject.minTemp"></span> / <span ng-bind="$ctrl.selectedDayObject.maxTemp"></span>
+			</div>
+		</div>
+	</div>
+	<div class="weather-card__secondary">
+		<div class="weather-card__secondary-row">
+			<div class="weather-card__secondary-block">
+				<span class="weather-card__secondary-block__value">{{$ctrl.selectedDayObject.predictability}}</span>
+				<span class="weather-card__secondary-block__label">Predictability</span>
+			</div>
+			<div class="weather-card__secondary-block">
+				<span class="weather-card__secondary-block__value">{{$ctrl.selectedDayObject.windSpeed}}</span>
+				<span class="weather-card__secondary-block__label">Wind</span>
+			</div>
+		</div>
+		<div class="weather-card__secondary-row">
+			<div class="weather-card__secondary-block">
+				<span class="weather-card__secondary-block__value">{{$ctrl.selectedDayObject.airPressure}}</span>
+				<span class="weather-card__secondary-block__label">Air pressure</span>
+			</div>
+			<div class="weather-card__secondary-block">
+				<span class="weather-card__secondary-block__value">{{$ctrl.selectedDayObject.windDirection}}</span>
+				<span class="weather-card__secondary-block__label">Wind direction</span>
+			</div>
+		</div>
+		<div class="weather-card__secondary-row">
+			<div class="weather-card__secondary-block">
+				<span class="weather-card__secondary-block__value">{{$ctrl.selectedDayObject.visibility}}</span>
+				<span class="weather-card__secondary-block__label">Visibility</span>
+			</div>
+			<div class="weather-card__secondary-block">
+				<span class="weather-card__secondary-block__value">{{$ctrl.selectedDayObject.airPressure}}</span>
+				<span class="weather-card__secondary-block__label">Air pressure</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="weather-card__previews">
+	<div 
+		class="weather-card__preview"
+		ng-repeat="previewDayWeather in $ctrl.weekForecastArr"
+		>
+		<div class="weather-card__current-day-value weather-card__current-day-value--preview">
+			{{previewDayWeather.currentDay}}
+		</div>
+		<div class="weather-card__main">
+			<weather-icon
+				class="weather-card__icon weather-card__icon--preview"
+				path-icon="previewDayWeather.iconPath" 
+				title="previewDayWeather.weather_state_name">
+			</weather-icon>
+			<div class="weather-card__main-informations">
+				<div class="weather-card__main__temp weather-card__main__temp--preview" ng-bind="previewDayWeather.temp"></div>
+				<div class="weather-card__main__weatherCondition" ng-bind="previewDayWeather.weather_state_name"></div>
+				<div class="weather-card__main__extremes">
+					<span ng-bind="previewDayWeather.minTemp"></span> / <span ng-bind="previewDayWeather.maxTemp"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

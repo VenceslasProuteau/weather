@@ -1,6 +1,42 @@
 .weather {
+	height: 100%;
+	position: relative;
+	
+	&__menu-btn {
+		position: absolute;
+		left: 1rem;
+		top: 1rem;
+		width: 2rem;
+		height: 2rem;
+		background: red;
+
+		@media screen and (min-width: 1024px)  {
+		    display: none !important;
+		}
+	}
+
 	&-cards {
 		display: flex;
-		padding: 20px 0;
+	    align-items: center;
+	    justify-content: center;
+	    padding: 20px 0;
+	    position: absolute;
+	    top: 4rem;
+	    right: 0;
+	    left: 0;
+	    bottom: 0;
+	}
+
+	&-content {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		transition: ease-in left .3s;
+
+		&--sidebar-visible {
+			left: 20rem;
+		}
 	}
 }

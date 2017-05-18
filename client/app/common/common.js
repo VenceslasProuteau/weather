@@ -1,14 +1,10 @@
 import angular from 'angular';
-import Weather from './weather/weather';
-import WeatherForm from './weather/weather-form/weather-form';
-import WeatherCard from './weather/weather-card/weather-card';
-import WeatherIcon from './weather/weather-icon/weather-icon';
+import WeatherModule from './weather/weather';
+import SpinnerModule from './spinner/spinner';
 
 let commonModule = angular.module('app.common', [
-  Weather,
-  WeatherForm,
-  WeatherCard,
-  WeatherIcon
+  WeatherModule,
+  SpinnerModule
 ])
   
 .name;

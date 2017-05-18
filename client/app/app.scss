@@ -3,5 +3,10 @@
 .app {
   height: 100%;
   background-color: $bgColor;
+
+  &-layout {
+  	height: 100%;
+  	width: 100%;
+  }
 }
 

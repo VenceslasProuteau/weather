@@ -1,12 +1,24 @@
 <div class="weather">
-	<weather-form add-location="$ctrl.addLocation($event)"></weather-form>
-	<div class="weather-cards">
+	<weather-sidebar
+		class="weather-sidebar"
+		ng-class="{'weather-sidebar--visible': $ctrl.locations.length}"
+		locations="$ctrl.locations"
+		search-location="$ctrl.addLocation(query)"
+		set-active="$ctrl.setActive($event)"
+		selected-location-id="$ctrl.selectedLocation.woeid">
+	</weather-sidebar>
+	<div class="weather-content" ng-class="{'weather-content--sidebar-visible': $ctrl.locations.length}">
+		<weather-form 
+			class="weather-form"
+			ng-if="!$ctrl.locations.length"
+			add-location="$ctrl.addLocation($event)"
+			>
+		</weather-form>
 		<weather-card 
-			remove-location="$ctrl.removeLocation($event)" 
-			path-icons="$ctrl.pathIcons" 
-			location="location" 
-			ng-repeat="location in $ctrl.locations track by location.woeid"
-			class="weather-card">
+			class="weather-card"
+			ng-if="$ctrl.locations.length"
+			location="$ctrl.selectedLocation"
+			>
 		</weather-card>
 	</div>
 </div>

@@ -1,6 +1,7 @@
 import { API_CFG, API_BASEURL } from '../../constants';
+import WeatherObject from './WeatherObject';
 
-export class WeatherService {
+export default class WeatherService {
 	constructor($http) {
 		"ngInject";
 		this.$http = $http;
@@ -11,6 +12,9 @@ export class WeatherService {
 	}
 	getLocationData(woeid) {
 		return this.$http.get(`${API_BASEURL}${woeid}/`)
-			.then(response => response.data);
+			.then(response => {
+				response.data.consolidated_weather = response.data.consolidated_weather.map(dayWeather => dayWeather = new WeatherObject(dayWeather));
+				return response.data;
+			});
 	}
 }

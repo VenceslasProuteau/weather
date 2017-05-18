@@ -3,8 +3,7 @@ import controller from './weather-form.controller';
 
 let WeatherFormComponent = {
 	bindings: {
-		addLocation : '&',
-		query: '<'
+		addLocation : '&'
 	},
 	template,
 	controller

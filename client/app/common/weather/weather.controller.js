@@ -1,38 +1,40 @@
-import { ICON_BASEURL } from '../../constants';
 
 class WeatherController {
-  constructor(WeatherService) {
+  constructor(WeatherService, SpinnerService) {
   	"ngInject";
     this.WeatherService = WeatherService;
+    this.SpinnerService = SpinnerService;
   }
   $onInit() {
   	this.locations = [];
-  	this.query = '';
-  	this.pathIcons = ICON_BASEURL;
+    this.selectedLocation = null;
   }
   addLocation(query) {
+    this.SpinnerService.show();
   	if (!query) { return; }
     return this.WeatherService.getWoeid(query)
       .then(response => this.WeatherService.getLocationData(response.woeid)
         .then(response => {
           // check if query already in locations
           const exist = this.locations.some(location => location.woeid === response.woeid);
-          // if it doesnt exist we push it
-          if (!exist) {
-            this.locations.push(response);
-          } else {
-            // else we update the location with fresh updated values
-            const locationIndex = this.locations.findIndex(location => location.woeid === response.woeid);
-            this.locations.splice(locationIndex, 1, response);
-          }
-        })
-      )
-  }
 
-  removeLocation({id}) {
-  	if (!id) { return; }
-  	const index = this.locations.findIndex(location => location.woeid === id);
-  	this.locations.splice(index, 1);
+          if (!exist) {
+            this.locations = [response, ...this.locations];
+          } else {
+            const locationIndex = this.locations.findIndex(location => location.woeid === response.woeid);
+            // else we update the location with fresh updated values
+            this.locations = [...this.locations.slice(0, locationIndex), response, ...this.locations.slice(locationIndex + 1)];
+          }
+          this.setActive({location: response});
+        })
+      ).finally(() => this.SpinnerService.hide())
+  }
+  removeLocation({location}) {
+  	if (!location.woeid) { return; }
+    this.locations = this.locations.filter(({woeid}) => woeid !== location.woeid)
+  }
+  setActive({location}) {
+    this.selectedLocation = Object.assign({}, location);
   }
 }
 
